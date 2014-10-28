@@ -1,0 +1,537 @@
+Michael Owusu
+Anita DeWitt
+
+9/22/14
+
+Stream Input in Java
+
+Reading Input from a File
+
+2.
+a. When the file name is mispelled an error is returned and the code cannot be executed. The error is as follows:
+
+java.io.FileNotFoundException: /home/owusumic17/CSC 207/testing.data (No such file or directory)
+
+b. When the try and catch block are deleted an error shows up and Eclipse's
+intellisense recommends that we either use a try and catch block or throw
+Exception 
+
+c.
+check
+
+d. Upon removing a test score, we recieve the following error:
+
+         Name                      Test
+First    Last		 1 	2 	3      Average
+Exception in thread "main" java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:504)
+	at java.lang.Integer.<init>(Integer.java:677)
+	at testScores.TestScanner1.main(TestScanner1.java:54)
+
+
+This can be attributed to our code looking for a variable to set as
+test3. Since it does not have this it cannot run that operation and
+therefore returns an error.
+
+e.
+After adding a test score, this is the error we received:
+
+      Name                      Test
+First    Last		 1 	2 	3      Average
+Exception in thread "main" java.lang.NumberFormatException: For input string: "91   22"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:492)
+	at java.lang.Integer.<init>(Integer.java:677)
+	at testScores.TestScanner1.main(TestScanner1.java:54)
+
+This program was designed only to take 3 test scores per person. When there
+are more or less there is interference with setting test1, test2, and
+test3. To submit a different ammount of tests per person, the code needs to
+be changed. We are able to back that idea up by switching back to three
+test scores because then the program runs without error.
+
+
+
+3a. The program fails to compile, which as the same result as
+TestScanner1.java. When the file name is mispelled an error is returned and the code cannot be executed. The error is as follows:
+
+Exception in thread "main" java.lang.Error: Unresolved compilation problems: 
+	Unhandled exception type FileNotFoundException
+	Unhandled exception type IOException
+	Unhandled exception type IOException
+
+	at testScores.TestBufferedReader1.main(TestBufferedReader1.java:23)
+
+3b. As with TestScanner1.java, when the try and catch block are deleted an error
+shows up and Eclipse's intellisense recommends that we either use a try and
+catch block or throw Exception.
+
+3c. 
+check
+
+3d.
+After adding a test score, this is the error we received:
+
+      Name                      Test
+First    Last  		 1	 2	 3      Average
+Exception in thread "main" java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:504)
+	at java.lang.Integer.<init>(Integer.java:677)
+	at testScores.TestBufferedReader1.main(TestBufferedReader1.java:58)
+
+As you can see, first, two lines were printed first before the program
+reached the error. This is because the code is searching for a test3
+variable and cannot find one.
+
+3e. 
+Again the code would not run. This is the error that we received:
+
+
+      Name                      Test
+First    Last  		 1	 2	 3      Average
+Exception in thread "main" java.lang.NumberFormatException: For input string: "22   11"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:492)
+	at java.lang.Integer.<init>(Integer.java:677)
+	at testScores.TestBufferedReader1.main(TestBufferedReader1.java:58)
+
+This program was designed only to take 3 test scores per person. When there
+are more or less there is interference with the setting of test1, test2, and
+test3. To submit a different amount of tests per person, the code needs to
+be changed.
+
+
+
+4a. Our code to answer 4a. is as follows:
+
+package streamInput;
+
+import java.util.Scanner;
+
+public class Greet {
+
+	public static void main (String args[])
+	{       
+		// use System.in to initialize scanner
+		Scanner user_input = new Scanner (System.in);
+
+		// Variable to store user input
+		String name;
+
+		// Ask user for name field
+		System.out.println("What is your name?");
+
+		// Receive user input
+		name = user_input.next();
+
+		// Close scanner
+		user_input.close();
+
+		// Print greeting to user
+		System.out.println("Have a nice day " + name + "!");
+
+	}
+
+}
+
+// Citation:
+// 1. http://www.homeandlearn.co.uk/java/user_input.html 
+// for help getting user input
+
+// 2.http://www.tutorialspoint.com/java/util/scanner_close.htm
+// For help closing scanner
+
+// 3. Reading on Stream Input
+
+
+Sample output is as follows:
+
+What is your name?
+Anita
+Have a nice day Anita!
+
+
+4b.
+
+i.
+Our Greet program using a BufferedReader/Try-Catch implementation
+is as follows:
+
+package streamInput;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Greet1 {
+
+	public static void main(String args[]) {
+
+		// Initialize BufferedReader
+		BufferedReader user_input = new BufferedReader(new InputStreamReader(System.in));
+
+		// Request user input
+		System.out.println("What is your name?");
+		
+		// Initialize variable to store user input and store user input in name variable
+		String name = null;
+		try {
+			name = user_input.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Greet User
+		System.out.println("Have a nice day " + name + "!");
+
+	}
+}
+
+// Citations:
+// 1. Reading on Input Stream
+
+// 2. http://www.java2s.com/Code/Java/File-Input-Output/ReadastringfromconsoleusingaBufferedReader.htm
+// for further help understanding BufferedReaders
+
+// 3. http://stackoverflow.com/questions/13405822/using-bufferedreader-readline-in-a-while-loop-properly
+// For help understanding readline
+
+Sample Output:
+
+What is your name?
+Henry
+Have a nice day Henry!
+
+
+ii.
+Our Greet program using a BufferedReader and throw Exception implementation
+is as follows:
+
+package streamInput;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Greet1 {
+
+	public static void main(String args[]) throws IOException {
+
+		// Initialize BufferedReader
+		BufferedReader user_input = new BufferedReader(new InputStreamReader(System.in));
+
+		// Request user input
+		System.out.println("What is your name?");
+		
+		// Initialize variable to store user input and store user input in name variable
+		String name = user_input.readLine();
+		
+		// Greet User
+		System.out.println("Have a nice day " + name + "!");
+
+	}
+}
+
+// Citations:
+// 1. Reading on Input Stream
+
+// 2. http://www.java2s.com/Code/Java/File-Input-Output/ReadastringfromconsoleusingaBufferedReader.htm
+// for further help understanding BufferedReaders
+
+// 3. http://stackoverflow.com/questions/13405822/using-bufferedreader-readline-in-a-while-loop-properly
+// For help understanding readline
+
+Sample Output:
+
+What is your name?
+Michael
+Have a nice day Michael!
+
+
+
+6a.
+
+Our code for the augmented add program using a Scanner is as follows:
+
+package streamInput;
+
+import java.util.Scanner;
+
+public class AddScanner {
+
+	
+	public static void main (String args[])
+	{       
+		// use System.in to initialize scanner
+		Scanner user_input = new Scanner (System.in);
+
+		// Variable to store user input
+		double R1;
+		
+		// Variable to store sum of user inputs
+		double sum;
+
+		// Ask user for name field
+		System.out.println("Enter number: ");
+
+		// Receive user input
+		R1 = user_input.nextInt();
+		
+		// First input
+		sum = R1;
+		
+		// Add subsequent inputs until user inputs zero
+		while(R1 != 0){
+			
+			// Set variable to users latest User input
+			R1 = user_input.nextInt();
+			
+			// Update sum
+			sum = sum + R1;
+		}
+		
+		// Close scanner
+		user_input.close();
+
+		// Print greeting to user
+		System.out.println("The sum is: " + sum);
+
+	}
+}
+
+Sample Output:
+
+Enter number: 
+5
+6
+7
+0
+The sum is: 18.0
+
+
+6b.
+Our code for the augmented add program using a BufferedReader,
+InputStreamReader and throws Exception clause is as follows:
+
+package streamInput;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class AddBufferedReader {
+
+	public static void main(String args[]) throws Exception {
+
+		// Initialize BufferedReader
+		BufferedReader user_input = new BufferedReader(new InputStreamReader(System.in));
+
+		// String Variable to store user input
+		String R1;
+		double R2 = 1;
+
+		// Double to store sum of user inputs
+		double sum;
+
+		// Ask user for name field
+		System.out.println("Enter number: ");
+
+		// Receive user input
+		R1 = user_input.readLine();
+
+		// First input
+		sum = Double.parseDouble(R1);
+
+		// Add subsequent inputs until user inputs zero
+		while(R2 != 0){
+
+			// Set variable to users latest User input
+			R2 = Double.parseDouble(user_input.readLine());
+
+			// Update sum
+			sum = sum + R2;
+		}
+
+		// Close BufferedReader
+		user_input.close();
+
+		// Print greeting to user
+		System.out.println("The sum is: " + sum);
+
+	}
+}
+
+// Citations:
+// 1. http://www.java-forums.org/java-tip/5678-reading-int-values-using-bufferedreader.html
+// for help reading integers using a BufferedReader
+
+
+Sample Output:
+
+Enter number: 
+1
+2
+3
+0
+The sum is: 6.0
+
+
+
+7.
+
+Our QuadraticRoot program is as follows
+
+package streamInput;
+
+import java.util.Scanner;
+
+public class QuadraticRoot {
+	
+	public static double smallQuadraticRoot(double a, double b, double c){
+		
+		double root =(-b - Math.sqrt(Math.pow(b,2)-(4*a*c)))/2;
+		return root;
+	}
+	
+	public static void main (String args[]){
+		
+		double a,b,c;
+		double root;
+		
+		//Ask user for a value
+		System.out.println("Enter value for a:");
+		// use System.in to initialize scanner
+		Scanner user_input1 = new Scanner(System.in);
+		// Receive user input
+		a = user_input1.nextDouble();
+		
+		//Ask user for b value
+		System.out.println("Enter value for b:");
+		// use System.in to initialize scanner
+		Scanner user_input2= new Scanner(System.in);
+		// Receive user input
+		b = user_input2.nextDouble();
+		
+		//Ask user for c value
+		System.out.println("Enter value for C:");
+		// use System.in to initialize scanner
+		Scanner user_input3= new Scanner(System.in);
+		// Receive user input
+		c = user_input3.nextDouble();
+
+		root = smallQuadraticRoot(a, b, c);
+		System.out.println("The root value is: " + root);
+		
+		// Close scanner
+		user_input1.close();
+		user_input2.close();
+		user_input3.close();
+	}
+		
+}
+
+//Citations:
+//	1. http://stackoverflow.com/questions/16047417/quadratic-formula-with-scanner-inputs
+//        for help with translating the quadratic formula to java
+	
+
+Sample Output:
+
+Enter value for a:
+1
+Enter value for b:
+-4
+Enter value for C:
+-5
+The root value is: -1.0
+
+8.
+The final version of QuardriticRoot is as follows:
+
+package streamInput;
+
+import java.util.Scanner;
+
+public class SmallerQuadraticRoot {
+
+	public static double smallerQuadraticRoot(double a, double b, double c) throws Exception, ArithmeticException	{
+
+		if (a == 0)
+		{
+			throw new ArithmeticException("Cannot compute quadratic roots of linear functions.");
+		}
+
+		double root =(-b - Math.sqrt(Math.pow(b,2)-(4*a*c)))/2;
+		
+		if (Math.pow(b,2)-(4*a*c) < 0)
+			throw new Exception("Root is not real.");
+		else
+			return root;
+	}
+
+	public static void main (String args[]){
+
+		double a,b,c;
+		double root;
+
+		//Ask user for a value
+		System.out.println("Enter value for a:");
+		// use System.in to initialize scanner
+		Scanner user_input1 = new Scanner(System.in);
+		// Receive user input
+		a = user_input1.nextDouble();
+
+		//Ask user for b value
+		System.out.println("Enter value for b:");
+		// use System.in to initialize scanner
+		Scanner user_input2= new Scanner(System.in);
+		// Receive user input
+		b = user_input2.nextDouble();
+		
+		//Ask user for c value
+		System.out.println("Enter value for C:");
+		// use System.in to initialize scanner
+		Scanner user_input3= new Scanner(System.in);
+		// Receive user input
+		c = user_input3.nextDouble();
+
+		try {
+			root = smallerQuadraticRoot(a, b, c);
+			System.out.println("The root value is: " + root);
+		}
+		catch (ArithmeticException arithE) 
+	    {
+	      System.err.println("Cannot compute a result because the coefficient of the quadratic term is 0.");
+	    }    
+		catch (Exception e) {
+			System.err.println("Sorry, I could not compute a root.");
+			e.printStackTrace();
+		}
+		
+		
+		// Close scanner
+		user_input1.close();
+		user_input2.close();
+		user_input3.close();
+	}
+}
+
+//citations:
+// Mira Hall, Alex Mitchell for helping with testing if something is an
+imaginary number using discrimant 
+
+
+Sample Output:
+
+Enter value for a:
+1
+Enter value for b:
+-10
+Enter value for C:
+34
+Sorry, I could not compute a root.
+java.lang.Exception: Root is not real.
+	at streamInput.SmallerQuadraticRoot.smallerQuadraticRoot(SmallerQuadraticRoot.java:17)
+	at streamInput.SmallerQuadraticRoot.main(SmallerQuadraticRoot.java:49)
